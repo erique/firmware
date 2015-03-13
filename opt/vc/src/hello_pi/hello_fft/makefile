@@ -23,12 +23,13 @@ H1D = gpu_fft.h mailbox.h
 H2D = gpu_fft.h mailbox.h gpu_fft_trans.h hello_fft_2d_bitmap.h
 
 F = -lrt -lm -ldl
+F+= -L../lib -L$(SDKSTAGE)/opt/vc/lib/ -lbcm_host -lvcos -lvchiq_arm 
 
 hello_fft.bin:	$(S) $(C1D) $(H1D)
-	gcc -o hello_fft.bin $(F) $(C1D)
+	$(CC) -o hello_fft.bin $(F) $(C1D)
 
 hello_fft_2d.bin:	$(S) hex/shader_trans.hex $(C2D) $(H2D)
-	gcc -o hello_fft_2d.bin $(F) $(C2D)
+	$(CC) -o hello_fft_2d.bin $(F) $(C2D)
 
 clean:
 	rm -f *.bin
